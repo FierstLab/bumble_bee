@@ -16,7 +16,7 @@ plt.interactive(False)
 
 grp = ['case']   #if you have more than one set of samples you can rename this according to your sample names
 for group in grp:
-    path = '/Users/rvermamac/Documents/bee_test_codes/Methylated_files/'
+    path = '/path/Methylated_files/'
     for filename in glob.glob(os.path.join(path, '*.dat')):
         output = os.path.basename(filename).replace('.dat', '_out.dat')
         fw = open(path+'/Freq_Num_methylated/'+output,'w')
