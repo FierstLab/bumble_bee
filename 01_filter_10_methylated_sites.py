@@ -7,7 +7,7 @@ import glob
 
 
 
-path = '/Users/rvermamac/Documents/bee_test_codes/'          # this folder contains the methylkit files (you can edit as per your folder names)
+path = '/path/with/methylkit_files/'          # this folder contains the methylkit files (you can edit as per your folder names)
 for filename in glob.glob(os.path.join(path, '*.methylKit')):
 	with open(os.path.join(os.getcwd(), filename), 'r') as f: # these files contain 7 colums. Columns 6 and 7 are freqC and freqT
 		val = [line.split() for line in f]
