@@ -1,0 +1,41 @@
+##This script is for calculating the stat of coverage for each set of files based on the evironmental category
+## this is an optional excercise to have a look at the coverage stats
+
+import matplotlib.pyplot as plt
+import os
+import glob
+import numpy as np
+#from orca.settings import layoutMode
+
+path = "/path_to_filtered_files/"
+fw = open(path+"coverage_stats_exon.csv", 'w')
+fw.write(str("sample")+'\t'+str("min")+'\t'+str("mean")+'\t'+str("std")+'\t'+str("max")+'\t'+str("median")+'\n')
+meanCov = []
+altitudes = ['High_altitude', 'Low_altitude']
+for alt in altitudes:
+	for filename in glob.glob(os.path.join(path, '*.dat')):
+		print(filename)
+		with open(filename, 'r') as f: # these files contain 6 columns. Columns 5 and 6 are numC and numT
+			wfilename = filename.strip(path).rstrip('_CpG.dat')
+			lines = f.readlines()
+			cov = [int(line.split()[5])+int(line.split()[6]) for line in lines]
+			meanC = round(np.mean(cov), 3)
+			stdC = round(np.std(cov), 3)
+			minC = min(cov)
+			maxC = max(cov)
+			medianC = np.median(cov)
+			meanCov.append(meanC)
+			fw.write(str(wfilename)+'\t'+str(minC)+'\t'+str(meanC)+'\t'+str(stdC)+'\t'+str(maxC)+'\t'+str(medianC)+'\n')
+fw.close()
+plt.close()
+plt.figure(figsize=(3,3))
+
+plt.hist(cov, bins=100)
+plt.yscale('log')
+# plt.xlim(0,5000)
+# plt.ylim(0, 2000)
+plt.xlabel("coverage")
+plt.ylabel("freq of coverage")
+plt.title("Distribution of coverage_exon")
+plt.tight_layout()
+plt.savefig(path+"coverage_dist_exon.png", bbox_inches='tight')
