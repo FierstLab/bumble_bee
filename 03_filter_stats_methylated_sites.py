@@ -6,7 +6,7 @@
 import os as os
 
 
-path = "/Users/rvermamac/Documents/bee_test_codes/"
+path = "/path/"
 #f = open(path+"files_ID.dat",'r')           # this file contains the name/id of all the samples
 
 #filename = [line.split() for line in f]
